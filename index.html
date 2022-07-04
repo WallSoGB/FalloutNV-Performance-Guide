@@ -2,8 +2,8 @@
 <html lang="en">
 
     <head>
-        <meta charset="UTF-8">
         <title>Flipping flip</title>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://kit.fontawesome.com/baff4f2fd4.js" crossorigin="anonymous"></script>
         <script src="javascript.js"></script>
@@ -19,7 +19,6 @@
                 <p>
                     <a href="#Introduction" title="🙃 Introduction"><span>🙃</span> Introduction</a>
                     <a href="#Terminology" title="🙃 Terminology"><span>🙃</span> Terminology</a>
-                    <a href="#GraphicsSettings" title="🙃 Graphics Settings"><span>🙃</span> Graphics Settings</a>
                     <a href="#DXVK" title="🙃 DXVK"><span>🙃</span> DXVK</a>
                     <a href="#DisplayModeComparison" title="🙃 Display modes"><span>🙃</span> Display modes</a>
                     <a href="#RecommendedLimiters" title="🙃 FPS Limiters"><span>🙃</span> FPS Limiters</a>
@@ -57,19 +56,19 @@
                                 (Latency lowers along with refresh rate)
                             </li>
                             <li>
-                                <b>G-Sync | Freesync</b> - <b>Variable Refresh Rate (VRR)</b> technologies developed by NVIDIA and AMD respectively.
-                                They allow the display to adapt its refresh rate to the framerate,
-                                which in turn allows for stutter reduction and tear-free display of unstable framerate<sup><a href="#ad1">[1]</a></sup>,
-                                and with a proper FPS cap - lower latency compared to V-Sync
+                                <b>G-Sync | Freesync</b> - Variable Refresh Rate (VRR) technologies developed by NVIDIA and AMD respectively.
+                                Allows display to adapt its refresh rate to framerate,
+                                which in turn allows for stutter reduction and tear-free display of mismatched frames<sup><a href="#ad1">[1]</a></sup>,
+                                additionally lowering latency compared to V-Sync
                             </li>
                             <li><b>Presentation modes:</b></li>
                             <ul>
                                 <li>
-                                    <b>Flip Model</b> - presentation mode first added in Windows 7 with D3D9Ex and upgraded in DXGI in Windows 8-10.
+                                    <b>Flip Model</b> - presentation mode first added in Windows 7 with D3D9ex and later perfected in Windows 8, 8.1 and 10.
                                     <br>
-                                    Allows "fullscreen-level" of performance and latency. Has native VRR support in Windowed mode. Additionally, DXGI version supports tearing (V-Sync off) in Windowed mode, HDR and has Multiplane Overlay (MPO) support.
+                                    Allows "fullscreen-level" of performance, latency and VRR in Windowed modes. Since DXGI 1.5 it also supports tearing (V-Sync off) in Windowed mode and HDR.
                                     <br>
-                                    DXGI variant is supported only in D3D10 and upwards<sup><a href="#ad2">[2]</a></sup>, enforced only in D3D12, and exists only on Windows 8 and upwards.
+                                    DXGI one is supported only in D3D10 and upwards<sup><a href="#ad2">[2]</a></sup>, enforced only in D3D12, and exists only on Windows 8 and upwards.
                                     <br>
                                     D3D9Ex Flip Model is not feature matched and lacks any DXGI improvements.
                                     <br>
@@ -79,11 +78,11 @@
                                     <b>BitBlt Model</b> - older presentation mode used by applications that don't use Flip Model.
                                     Lacks all of its advantages, and when used in Windowed mode, has worse performance and always-on V-Sync on top of already additional latency caused by additional copy operations.
                                     <br>
-                                    The only presentation model for Windowed D3D9 (and lower), but still very common in D3D10 and D3D11 games.
+                                    The only presentation model for Windowed D3D9 (and lower), but still very common in D3D10 and D3D11
                                 </li>
                             </ul>
                             <p>
-                                While Vulkan and OpenGL<sup><a href="#ad3">[3]</a></sup> don't use aforementioned Presentation Modes in FSE, their windows are GDI-based, so they use BitBlt.
+                                Vulkan and OpenGL<sup><a href="#ad3">[3]</a></sup> don't use aforementioned Windows models but end up being presented similarly to the BitBlt model
                             </p>
                             <li>
                                 <b>Display modes:</b>
@@ -91,18 +90,16 @@
                             <ul>
                                 <li>
                                     <b>Fullscreen Exclusive (FSE)</b> - legacy method of displaying content where application takes complete ownership of the screen.
-                                    Has slow Alt-Tab due to display ownership transfer, can be problematic if games are badly coded and switch to odd resolutions or refresh rates by default. Can lose color profiles.
-                                    Despite that, it offers the best feature compatibility and perfomance for games that don't use Flip Model. Deprecated by FSO for DirectX games.
+                                    Causes slow Alt-Tab, can be problematic if games are badly coded and switch to odd resolutions or refresh rates by default.
+                                    Has problems with color profiles.
+                                    Supports VRR, downscaling and upscaling.
                                     <br>
                                     Supported by every graphics API other than D3D12
                                 </li>
                                 <li>
                                     <b>Fullscreen with Fullscreen Optimizations (FSO)</b> - an update to FSE for DirectX added in Windows 10 1803.
-                                    <br>
-                                    Converts DirectX applications running in FSE mode into a pseudo borderless mode with Flip Model for faster Alt-Tab,
-                                    lower latency, better color profile handling, and support for Windowed overlays (Xbox Game Bar, volume and brightness sliders etc.).
-                                    <br>
-                                    Because of being a Windowed mode under the hood, it can break e.g. brightness control in old games that modify system gamma instead of window's.
+                                    Makes DirectX applications run in pseudo borderless mode with Flip Model for faster Alt-Tab,
+                                    lower latency than FSE, better color profile handling, and also adds support for windowed overlays. This renders FSE inferior in every way for DirectX games.
                                     <br>
                                     Enabled by default for every application.
                                     <br>
@@ -110,21 +107,21 @@
                                 </li>
                                 <li>
                                     <b>Windowed</b> - method of displaying content in a window, always managed by DWM. Due to being a window, Alt-Tab is fast, and color profiles usually don't have any problems.
-                                    If not using Flip Model, it has worse performance compared to FSO | FSE, lacks native VRR support, has increased input latency and uses always-on V-Sync
+                                    If not using Flip Model, it's worse performance compared to FSO | FSE, lacks native VRR support, has increased input latency and uses always-on V-Sync
                                 </li>
                             </ul>
                         </ul>
                         <span class="annotations">
                             <ol>
                                 <li id="ad1">
-                                    Emphasis on unstable, because tear-free, no-latency experience is possible with stable framerates on fixed refresh rate displays by hiding the tearline in VBlank (see RTSS Scanline Sync, Special K Latent Sync, FPS
+                                    I'm saying "mismatched", because tear-free, no-latency experience is possible with stable framerates on fixed refresh rate displays by hiding the tearline in VBlank (see RTSS Scanline Sync, Special K Latent Sync, FPS
                                     Monitor
                                     Cyber Sync).
                                     <br>
                                     It requires some tinkering to work though, and is not guaranteed to work on every display at default timings
                                 </li>
                                 <li id="ad2">
-                                    D3D10 and D3D11 supporting Flip Model doesn't mean that game actually uses it (Unity and UE4 implemented Flip Model support around 2019 - 7 years after its release!).
+                                    D3D10 and D3D11 supporting Flip Model doesn't mean that game actually uses it (Unity and UE4 implemented Flip Model support around 2019).
                                     <br>
                                     Flip Model in Windowed mode can be enabled in those games using Special K (D3D11 only) or Windows 11's (22H2) Optimizations for Windowed Games (both D3D10 and D3D11)
                                 </li>
@@ -132,7 +129,7 @@
                                     OpenGL can be displayed using D3D11 thanks to Special K, which enables Flip Model and all its benefits along with HDR.
                                     <br>
                                     Most OpenGL games also get displayed as D3D11 by Nvidia drivers when using Nvidia GPU as a render device, but not as a display output. This happens mostly on laptops, but works on desktops too.
-                                    Games converted this way don't use Flip Model, so Special K or Windows 11 (22H2) is needed
+                                    Games converted this way don't use Flip Model, so Special K or W11 22H2 is needed
                                 </li>
                             </ol>
                         </span>
@@ -142,111 +139,159 @@
 
                 <!-- GraphicsSettings -->
                 <div>
-                    <label id="GraphicsSettings" onclick="location.href='#GraphicsSettings'">
+                    <label class="sectionHeader" id="GraphicsSettings" onclick="location.href='#GraphicsSettings'">
                         <h2>Graphics Settings</h2>
                     </label>
                     <div class="card">
                         <p>
-                        <h3>Fonfigurator</h3>
+                        <h3>Let's see...</h3>
                         Worse BethINI goes here 🙃🏗️
-                        <h3>Presets</h3>
-                        <p>
-                        <div class="presets image-container">
-                            <span class="presets" id="card-buttons">
-                                <button onclick="changeImage(this, '0')" class=" active">Low<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '1')">Medium<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '2')">High<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '3')">Ultra<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '4')">Max<div class="selector"></div></button>
-                            </span>
-                            <img src="DisplayComparisons/presets/0.png" class="presets" id="image" onclick="openImg(this)" title="Open full image in a new window" />
-                            <!--    <button class="card-image-fonfig" onclick="changeGame(this)">
-                                Fallout New Vegas
-                            </button>
-                         <span>
-                                <span class="card-image-test">+0.139ms</span>
-                                <span class="card-image-test">+0.487ms</span>
-                                <span class="card-image-test">+0.614ms</span>
-                                <span class="card-image-test">+0.909ms</span>
-                            </span> -->
+                        <h2>Max has no image so it goes to 1</h2>
+                        <div class="slideshow-container">
+                            <div class="card-image">
+                                <button onclick="currentSlide(1)" class="topNavButton">Low<div class="selector"></div></button>
+                                <button onclick="currentSlide(2)" class="topNavButton">Medium<div class="selector"></div></button>
+                                <button onclick="currentSlide(3)" class="topNavButton">High<div class="selector"></div></button>
+                                <button onclick="currentSlide(4)" class="topNavButton">Ultra<div class="selector"></div></button>
+                                <button onclick="currentSlide(5)" class="topNavButton">Max<div class="selector"></div></button>
+                            </div>
+                            <div class="mySlides">
+                                <img src="DisplayComparisons/Low.png" class="comparison-image" />
+                            </div>
+
+                            <div class="mySlides">
+                                <img src="DisplayComparisons/Medium.png" class="comparison-image" />
+                            </div>
+
+                            <div class="mySlides">
+                                <img src="DisplayComparisons/High.png" class="comparison-image" />
+                            </div>
+
+                            <div class="mySlides">
+                                <img src="DisplayComparisons/Ultra.png" class="comparison-image" />
+                            </div>
+
+
+                        </div>
+                        <br>
+
+                        <script>
+                            let slideIndex = 1;
+                            showSlides(slideIndex);
+
+                            function currentSlide(n) {
+                                showSlides(slideIndex = n);
+                            }
+
+                            function showSlides(n) {
+                                let i;
+                                let slides = document.getElementsByClassName("mySlides");
+                                let topNavButtons = document.getElementsByClassName("topNavButton");
+                                if (n > slides.length) { slideIndex = 1 }
+                                if (n < 1) { slideIndex = slides.length }
+                                for (i = 0; i < slides.length; i++) {
+                                    slides[i].style.display = "none";
+                                }
+                                for (i = 0; i < topNavButtons.length; i++) {
+                                    topNavButtons[i].className = topNavButtons[i].className.replace(" active", "");
+                                }
+                                slides[slideIndex - 1].style.display = "block";
+                                topNavButtons[slideIndex - 1].className += " active";
+                            }
+                        </script>
+                        <h1 style="color: yellow">TEMPLATE - SETTINGS USED BY PRESETS</h1>
+                        <h3>Display</h3>
+                        <div class="card-basic">
+                            <p>
+                                <br>
+                                [Display]
+                                <br>
+                                iMultiSample=4
+                                <br>
+                                iWaterMultisamples=4
+                                <br>
+                                bTransparencyMultisampling=1
+                                <br>
+                                iMaxDecalsPerFrame=10
+                                <br>
+                                iMaxAnisotropy=15
+                                <br>
+                                iTexMipMapSkip=0
+                                <br>
+                                iTexMipMapMinimum=4
+                                <br>
+                                fDecalLOD1=500.0000
+                                <br>
+                                fDecalLOD2=1000.0000
+                                <br>
+                                iActorShadowCountInt=6
+                                <br>
+                                iActorShadowCountExt=6
+                                <br>
+                                fSpecularLODStartFade=2000.0000
+                                <br>
+                                fShadowLODStartFade=1000.0000
+                                <br>
+                                fLightLODStartFade=3500.0000
+                                <br>
+                                bDrawShadows=1
+                                <br>
+                                iShadowFilter=2
+                                <br>
+                                iShadowMapResolution=1024
+                            </p>
+                        </div>
+                        <h3>LOD</h3>
+                        <div class="card-basic">
+                            <p>
+                                [LOD]
+                                <br>
+                                fLODFadeOutMultActors=15.0000
+                                <br>
+                                fLODFadeOutMultObjects=15.0000
+                                <br>
+                                fLODFadeOutMultItems=15.0000
+                            </p>
+                        </div>
+                        <h3>TerrainManager</h3>
+                        <div class="card-basic">
+                            <p>
+                                [TerrainManager]
+                                <br>
+                                fTreeLoadDistance=40000.0000
+                                <br>
+                                fBlockLoadDistanceLow=50000.0000
+                                <br>
+                                fBlockLoadDistance=125000.0000
+                                <br>
+                                fSplitDistanceMult=1.5000
+                                <br>
+                                fHighBlockLoadDistanceLow=20000.0000
+                            </p>
                         </div>
                         <h3>Grass</h3>
-                        <div class="grass image-container">
-                            <span class="grass" id="card-buttons">
-                                <button onclick="changeImage(this, '0')" class=" active">Low<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '3000')">Medium<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '5000')">High<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '7000')">Ultra<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '11200')">Max<div class="selector"></div></button>
-                            </span>
-                            <img src="DisplayComparisons/grass/0.png" class="grass" id="image" onclick="openImg(this)" title="Open full image in a new window" />
-                            <button class="grass" id="card-fonfig" onclick="addFonfig(this)">
-                                Add to Fonfig™️ - 0
-                            </button>
+                        <div class="card-basic">
+                            <p>
+                                [Grass]
+                                <br>
+                                b30GrassVS=1
+                                <br>
+                                fGrassStartFadeDistance=7000.0000
+                            </p>
                         </div>
-
-                        <h3>Light</h3>
-                        <div class="light image-container">
-                            <span class="light" id="card-buttons">
-                                <button onclick="changeImage(this, '200')" class=" active">Low<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '1000')">Medium<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '2500')">High<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '3500')">Ultra<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '14000')">Max<div class="selector"></div></button>
-                            </span>
-                            <img src="DisplayComparisons/light/200.png" class="light" id="image" onclick="openImg(this)" title="Open full image in a new window" />
-                            <button class="light" id="card-fonfig" onclick="addFonfig(this)">
-                                Add to Fonfig™️ - 200
-                            </button>
+                        <h3>Imagespace</h3>
+                        <div class="card-basic">
+                            <p>
+                                [Imagespace]
+                                <br>
+                                bDoDepthOfField=1
+                                <br>
+                                iRadialBlurLevel=2
+                            </p>
                         </div>
-
-                        <h3>Specularity</h3>
-                        <div class="specularity image-container">
-                            <span class="specularity" id="card-buttons">
-                                <button onclick="changeImage(this, '200')" class=" active">Low<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '500')">Medium<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '1000')">High<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '2000')">Ultra<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '14000')">Max<div class="selector"></div></button>
-                            </span>
-                            <img src="DisplayComparisons/specularity/200.png" class="specularity" id="image" onclick="openImg(this)" title="Open full image in a new window" />
-                            <button class="specularity" id="card-fonfig" onclick="addFonfig(this)">
-                                Add to Fonfig™️ - 200
-                            </button>
-                        </div>
-
-                        <h3>Objects</h3>
-                        <div class="objects image-container">
-                            <span class="objects" id="card-buttons">
-                                <button onclick="changeImage(this, '2-5')" class=" active">Low<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '5')">Medium<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '7-5')">High<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '15')">Ultra<div class="selector"></div></button>
-                                <button onclick="changeImage(this, '30')">Max<div class="selector"></div></button>
-                            </span>
-                            <img src="DisplayComparisons/objects/2-5.png" class="objects" id="image" onclick="openImg(this)" title="Open full image in a new window" />
-                            <button class="objects" id="card-fonfig" onclick="addFonfig(this)">
-                                Add to Fonfig™️ - 2.5
-                            </button>
-                        </div>
-
                         <h3>Water</h3>
                         <div class="card-basic">
                             <p>
-                                [Display]
-                                <br>
-                                fSpecularLODStartFade=<span class="specularity" id="value">200</span>
-                                <br>
-                                fLightLODStartFade=<span class="light" id="value">200</span>
-                                <br>
-                                [Grass]
-                                <br>
-                                fGrassStartFadeDistance=<span class="grass" id="value">0</span>
-                                <br>
-                                [LOD]
-                                <br>
-                                fLODFadeOutMultObjects=<span class="objects" id="value">2.5</span>
-                                <br>
                                 [Water]
                                 <br>
                                 bUseWaterRefractions=1
@@ -267,86 +312,19 @@
                                 <br>
                                 iWaterBlurAmount=4
                                 <br>
+                                bAutoWaterSilhouetteReflections=0
+                                <br>
                                 bForceHighDetailReflections=1
                             </p>
                         </div>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- NVTF -->
-                <div>
-                    <label id="NVTF" onclick="location.href='#NVTF'">
-                        <h2>New Vegas Tick Fix</h2>
-                    </label>
-                    <div class="card">
-                        <p>
-                        <h3>Stutter remover</h3>
-                        New Vegas Tick Fix is a mod by <a href="https://www.nexusmods.com/newvegas/users/31254295">karut</a> that fixes and improves game's internal clocks and memory management, which dramatically reduces stutter. It also allows for
-                        playing above 60fps without breaking physics.
-                        <br>
-                        Additionally, it has some DirectX changes, which help with performance and greatly reduce memory usage.
-                        <h3>Installation</h3>
-                        <ol>
-                            <li>
-                                <p>
-                                    Download <a href="https://www.nexusmods.com/newvegas/mods/66537" target="_blank">NVTF</a> from Nexus and install with your mod manager.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    Open <b>NVTF.ini</b> in <b class="card-basic">NVSE\Plugins</b> as a text file and edit:
-                                <ul>
-                                    <li>
-                                        <div class="card-basic">
-                                            <p>
-                                                bModifyDirectXBehavior=1
-                                            </p>
-                                        </div>
-                                        Enables NVTF's DirectX changes.
-                                        <br>
-                                        <b>Required for following settings to work:</b>
-                                    </li>
-                                    <ul>
-                                        <li>
-                                            <div class="card-basic">
-                                                <p>
-                                                    bToggleTripleBuffering=1
-                                                </p>
-                                            </div>
-                                            Enables triple buffer V-Sync, which gets rid of problematic framerate halving on FPS drops/ instability caused by double buffer V-Sync.
-                                            <br>
-                                            <div class="card-yellow">
-                                                <p>
-                                                    <b>This change has no effect if you don't use V-Sync</b>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="card-basic">
-                                                <p>
-                                                    bUseDefaultPoolForTextures=1
-                                                </p>
-                                            </div>
-                                            Disables texture mirroring between VRAM and RAM, which decreases RAM usage. Allows to use high resolution textures.
-                                            <br>
-                                            If you don't plan on using any texture mods, it's not needed.
-                                            <br>
-                                            <div class="card-red">
-                                                <p>
-                                                    <b>This change breaks alt-tab functionality in Fullscreen mode.</b>
-                                                    <br>
-                                                    To mitigate that either use windowed mode, or DXVK.
-                                                    <br>
-                                                    Or just don't alt-tab.
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </ul>
-                                </p>
-                            </li>
-                        </ol>
+                        <h3>BlurShaderHDR</h3>
+                        <div class="card-basic">
+                            <p>
+                                [BlurShaderHDR]
+                                <br>
+                                bDoHighDynamicRange=1
+                            </p>
+                        </div>
                         </p>
                     </div>
                 </div>
@@ -370,7 +348,7 @@
                             <ul>
                                 <li>
                                     <p>
-                                        DXVK improves performance in mainly drawcall (CPU) bound scenarios (e.g. draw distance), and usually doesn't help much in GPU bound ones (e.g. resolution)
+                                        DXVK improves performance in mainly drawcall (CPU) bound scenarios (e.g draw distance), and usually doesn't help much in GPU bound ones (e.g resolution)
                                     </p>
                                     <ul>
                                         <li>
@@ -409,10 +387,7 @@
                                     <p>
                                         In Fallout: New Vegas known shader issues are:
                                     <ul>
-                                        <li>Broken Transparency Multisampling - alpha textures are more translucent, and are not anti-aliased.
-                                            <br>
-                                            It's recommended to disable it altogether.
-                                        </li>
+                                        <li>Broken Transparency Multisampling (makes grass and transparent objects aliased)</li>
                                         <li>Broken water reflections</li>
                                         <li>Broken lights and artifacting</li>
                                     </ul>
@@ -453,11 +428,10 @@
                                         dxvk.enableAsync = true
                                     </p>
                                 </div>
-                                <div>
-                                    <p>
-                                        This enables async patch in DXVK.</span>
-                                    </p>
-                                    </p>
+                                <p>
+                                    <span class="annotations">This enables async patch in DXVK.</span>
+                                </p>
+                                </p>
                             </li>
                         </ol>
                         </p>
@@ -515,7 +489,7 @@
                                         </ul>
                                         <div class="card-basic" id="karutpls">
                                             <p>
-                                                bUseDefaultPoolForTextures
+                                                bModifyDirectXBehavior
                                             </p>
                                         </div>
                                         <ul>
@@ -582,8 +556,7 @@
                     <label id="RecommendedLimiters" onclick="location.href='#RecommendedLimiters'">
                         <h2>Recommended framerate limiters and their configurations</h2>
                     </label>
-                    <!--<div class="card"> -->
-                    <div class="expander-top" id="api-expander">
+                    <div class="expander-top">
                         <p>
                         <h3>(Not) Pushing the limits</h3>
                         Limiting framerate is very important for overall stability. A good limiter will most importantly improve framepacing, reducing microstutter. Other benefits are reduced latency and power consumption.
@@ -596,15 +569,13 @@
                         </div>
                         <div class="card-yellow">
                             <p>
-                                Remember that V-Sync needs to be enabled for proper VRR functionality. You can enable it in game or through driver.
+                                If you don't use, or have VRR, it's best to limit your framerate in full intervals. (30 at 60hz, 72 at 144hz, etc.)
                             </p>
                         </div>
                         <p>
                             Enter your refresh rate here for automatic calculation of suggested FPS limits below. You can find your exact refresh rate in <b>Windows Settings\System\Display\Advanced Display</b>.
-                            <br>
-                            If you don't use, or have VRR, it's best to limit your framerate in full intervals. (30 at 60hz, 72 at 144hz, etc.)
                         <div>
-                            <input type="number" step="any" id="refreshRateInput" placeholder="Enter your refresh rate here" min="24" value="60" onchange="refreshRateCalculations()">
+                            <input type="number" step="any" id="refreshRateInput" placeholder="Enter your refresh rate here" value="60">
                             <button id="rrSubmit" onclick="refreshRateCalculations()" style="margin: 5px;">Calculate</button>
                         </div>
                         </p>
@@ -618,31 +589,25 @@
                             </tr>
                             <tr>
                                 <th>
-                                    <button class="api-selection" onclick="expandLimiterTutorials(this, expanderD3D9, expanderVulkan)">
-                                        <b>
-                                            D3D9
-                                            <br>
-                                            (Default)
-                                        </b>
-                                    </button>
+                                    <label class="toggler" id="buttonD3D9">
+                                        <input type="radio" name="apiSelection" class="apiSelection" onclick="expandLimiterTutorials(this, expanderD3D9, expanderVulkan)">
+                                        D3D9
+                                    </label>
                                 </th>
                                 <th>
 
                                 </th>
                                 <th>
-                                    <button class="api-selection" onclick="expandLimiterTutorials(this, expanderVulkan, expanderD3D9)">
-                                        <b>
-                                            Vulkan
-                                            <br>
-                                            (DXVK)
-                                        </b>
-                                    </button>
+                                    <label class="toggler" id="buttonVulkan">
+                                        <input type="radio" name="apiSelection" class="apiSelection" onclick="expandLimiterTutorials(this, expanderVulkan, expanderD3D9)">
+                                        Vulkan
+                                    </label>
                                 </th>
                             </tr>
                         </table>
                         </p>
                     </div>
-                    <div class="expander-bottom" id="expanderD3D9">
+                    <div class="expander-bottom" id="expanderD3D9" style="display: none;">
                         <p>
                         <h3>
                             NVIDIA | AMD driver
@@ -680,7 +645,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            VRR + V-Sync
+                                            VRR
                                             <div class="card-basic">
                                                 <p>
                                                     <span class="fpsVRR">(RefreshRate - (RefreshRate * 0.068))</span>
@@ -688,7 +653,6 @@
                                             </div>
                                         </li>
                                     </ul>
-                                    ...or lower
                                 </li>
                                 <li>
                                     Click <b>Apply</b>
@@ -707,99 +671,40 @@
                             </li>
                         </ul>
                         <h3>
-                            <a href="https://github.com/SpecialKO/SpecialK/releases/latest" target="_blank">Special K</a>
+                            <a href="https://sk-data.special-k.info/repository/SpecialK_22.5.15.exe" target="_blank">Special K</a> <sup>(Windows 8+ only)</sup>
                         </h3>
                         <ol>
-                            <div class="card-red">
-                                <h3>Warning!</h3>
-                                <p>
-                                    Due to Special K's complexity, it may <b>not work with DXVK</b>. It's recommended to skip it.
-                                    <br>
-                                    Special K works only on <b>Windows 8 and higher</b>.
-                                    <br>
-                                    Special K requires Fullscreen Optimizations to <u><b>NOT</b></u> disabled (FalloutNV.exe -> Properties -> Compatibility)
-                                    <br>
-                                    Special K may conflict with Riva Tuner. If the game crashes, make sure Riva Tuner is <b>not running</b>, or try <b>increasing injection delay</b>
-                                </p>
-                            </div>
-                            <div class="card-yellow">
-                                <p>
-                                    I'm not providing calculated values here, because Special K already does that automatically, and with higher precision
-                                </p>
-                            </div>
                             <li>
-                                Download the <b>SpecialK.7z</b> from the <b>Assets</b> section, then extract <b>SpecialK32.dll</b>
-                                to your Fallout New Vegas <b>root folder</b> and rename it to <b>dinput8.dll</b>
+                                From <b class="card-basic">Documents\My Mods\SpecialK</b> copy <b>SpecialK32.dll</b>,
+                                paste it in your Fallout New Vegas root folder and rename to <b>d3d9.dll</b>
                             </li>
                             <li>
-                                Launch Fallout New Vegas and press <b class="card-basic">Ctrl + Shift + Backspace</b> to enter Special K Control Panel
+                                Launch Fallout New Vegas and press <b>Ctrl + Shift + Backspace</b> to enter Special K Control Panel
                             </li>
                             <li>
-                                Enable the <b>Framerate Limit</b> by ticking the checkbox, then right click on the bar (not graph) next to it:
+                                Right click on <b>Framerate Limit</b> bar and select one of proposed values based on your refresh rate,
+                                or <b>Ctrl-Click</b> on the bar to enter a custom value
                                 <ul>
                                     <li>
-                                        No V-Sync
-                                        <div class="card-basic">
-                                            <p>
-                                                In right click menu select your refresh rate
-                                            </p>
-                                        </div>
-                                        <div class="expander-top" style="max-width: 70%;">
-                                            <p>
-                                                Optional - Disabled V-Sync with no tearing
-                                                <button onclick="expandCard(this, latentSync)" style="float: right; margin-top: -5px; width: 64px">Show</button>
-                                            </p>
-                                        </div>
-                                        <div class="expander-bottom" style="max-width: 70%;" id="latentSync">
-                                            <h4>It's best to do this in-game!</h4>
-                                            If you use <b>fullscreen mode without V-Sync</b> and <b>have stable framerate</b>, in limiter's right click menu select <b>Latent Sync</b>
-                                            <p>
-                                                In <b>Latent Sync</b> menu, select <b>Visualize Tearlines</b> and use <b>Sync offset</b> slider so the tearing is not visible.
-                                                <br>
-                                                Disable <b>Visualize Tearlines</b> when you decide you are satisfied with result.
-                                                <br>
-                                                It is possible that you won't see tearing out of the box.
-                                            </p>
-                                            <div class="card-red">
-                                                <p>
-                                                    Latpops with dedicated GPUs that do not have MUX switches for direct dGPU<->Display connection will have problems with hiding the tearline.
-                                                        <br>
-                                                        While it may be impossible to hide it completely, latency benefits are still applicable.
-                                                </p>
-                                                <p>
-                                                    Some monitors have too small vertical blanking, so it's possible to not fully hide the tearing without timing modifications -
-                                                    if you wish to pursue this topic, create a custom resolution with increased <b>Vertical Blanking</b> in your driver or with
-                                                    <b><a href="https://www.monitortests.com/forum/Thread-Custom-Resolution-Utility-CRU">Custom Resolution Utility</a></b>
-                                                <h4>It's best to first test the resolution in driver, otherwise you may lock out your display</h4>
-                                                </p>
-                                            </div>
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        V-Sync
-                                        <div class="card-basic">
-                                            <p>
-                                                In right click menu select your refresh rate, then <b>Ctrl-Click</b> on the <b>Framerate Limit</b> bar and subtract 1
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        VRR + V-Sync
-                                        <div class="card-basic">
-                                            <p>
-                                                In right click menu select <b>VRR Bias</b> and select the highest value.
-                                            <ul>
-                                                <li>
-                                                    The bias option is not needed for any lower values.
-                                                </li>
-                                            </ul>
-                                            Click on <b>Advanced</b> and enable <b>Low Latency Mode</b>
-                                            </p>
-                                        </div>
+                                        If you use <b>VRR</b>, in right click menu select <b>VRR Bias</b> and select one of proposed values.
+                                        <br>
+                                        Click on <b>Advanced</b> and enable <b>Low Latency Mode</b>
                                     </li>
                                 </ul>
-                                ...if you want to enter a custom value, <b>Ctrl-Click</b> on the bar. You can also drag your mouse on it.
+                                <div class="card-yellow">
+                                    <h3>Advanced</h3>
+                                    If you use <b>fullscreen mode without V-Sync</b> and <b>have stable framerate</b>, in right click menu select <b>Latent Sync</b>
+                                    <h4>It's best to do this in-game!</h4>
+                                    In <b>Latent Sync</b> menu, select <b>Visualize Tearlines</b> and use <b>Sync offset</b> slider so the tearing is not visible.
+                                    <br>
+                                    Disable <b>Visualize Tearlines</b> when you decide you are satisfied with result
+                                    Some monitors have too small vertical blanking, so it can be possible to not fully hide the tearing
+                                    <br>
+                                    If you wish to pursue this topic, create a custom resolution with increased <b>Vertical Blanking</b> in your driver or with
+                                    <b><a href="https://www.monitortests.com/forum/Thread-Custom-Resolution-Utility-CRU">Custom Resolution Utility</a></b>
+                                    <br>
+                                    <h3>It's best to first test the resolution in driver, otherwise you may lock out your display</h3>
+                                </div>
                             </li>
                         </ol>
                         <p>
@@ -813,7 +718,7 @@
                         </h3>
                         <ol>
                             <li>
-                                Install and open RTSS, press green <b>Add</b> button and select FalloutNV.exe
+                                Open RTSS, press green <b>Add</b> button and select FalloutNV.exe
                             </li>
                             <li>
                                 Set <b>Application Detection Level</b> to <b>Low</b>
@@ -838,7 +743,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        VRR + V-Sync
+                                        VRR
                                         <div class="card-basic">
                                             <p>
                                                 <span class="fpsVRR">(RefreshRate - (RefreshRate * 0.068))</span>
@@ -868,29 +773,24 @@
                             <br>
                             <img src="RTSS.png">
                             <br>
+                        <h4>
+                            <u>RTSS with this configuration is on par with Special K in terms of frametime stability</u>
+                        </h4>
                         </p>
                         </p>
                     </div>
-                    <div class="expander-bottom" id="expanderVulkan">
+                    <div class="expander-bottom" id="expanderVulkan" style="display: none;">
                         <p>
                         <h3>
                             DXVK
                         </h3>
-                        <!-- <div class="card-yellow">
+                        <div class="card-yellow">
                             <p>
                                 Limiters mentioned in D3D9 section work, but perform worse than the DXVK's one, so I don't recommend them
                             </p>
-                        </div> How the turntables -->
+                        </div>
                         <div class="card-red">
                             <h3>Warning!</h3>
-                            <p>
-                                Some people reported that DXVK's limiter halves framerates in interiors. If this happens to you, use limiters from D3D9 section.
-                                <br>
-                                I'm keeping DXVK's limiter instructions, because it's still the best one for it.
-                            </p>
-                        </div>
-                        <div class="card-yellow">
-                            <h3>Before you start...</h3>
                             <p>
                             <ul>
                                 <li>
@@ -900,8 +800,8 @@
                                     DXVK accepts only integer values!
                                 </li>
                                 <li>
-                                    DXVK's limiter doesn't work when its (or game's) V-Sync enabled!
-                                    <ol>
+                                    DXVK's limiter doesn't work with its (or game's) V-Sync enabled!
+                                    <ul>
                                         <li>
                                             Disable V-Sync in DXVK (will override game's setting)
                                             <div class="card-basic">
@@ -913,7 +813,7 @@
                                         <li>
                                             Enable V-Sync in your GPU driver
                                         </li>
-                                    </ol>
+                                    </ul>
                                 </li>
                             </ul>
                             </p>
@@ -939,7 +839,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        VRR + V-Sync
+                                        VRR
                                         <div class="card-basic">
                                             <p>
                                                 d3d9.maxFrameRate = <span class="fpsVRR">(RefreshRate - (RefreshRate * 0.068))</span>
