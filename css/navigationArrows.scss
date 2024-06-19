@@ -1,0 +1,34 @@
+.navigationArrowContainer {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em;
+}
+
+.navigationArrow {
+    display: flex;
+    justify-content: center;
+}
+
+.navigationArrow img {
+    width: 7.5em;
+    height: 7.5em;
+    margin: 0.5em 1em 1em 1em;
+}
+
+.navigationArrow .arrowText {
+    text-decoration: none;
+    font-size: 2.5em;
+    display: flex;
+    padding-top: 1.4em !important;
+    color: #ffffff;
+}
+
+.navigationArrow:hover img {
+    scale: 90%;
+    transform: scaleY(90%);
+}

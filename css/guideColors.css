@@ -1,0 +1,58 @@
+h1 {
+  color: cyan;
+}
+
+h2 {
+  color: #1AFF80;
+}
+
+h3 {
+  color: rgba(26, 255, 129, 0.9);
+}
+
+strong {
+  color: rgba(26, 255, 129, 0.6);
+}
+
+b {
+  color: rgba(26, 255, 129, 0.7);
+}
+
+body {
+  background-color: hsl(163, 17%, 8%) !important;
+}
+
+.sidebar,
+.header {
+  background: rgb(29, 36, 34) !important;
+}
+
+/* h1 {
+    color: cyan;
+}
+
+h2 {
+    color: rgb(255, 181, 66);
+}
+
+h3 {
+    color: rgba(255, 181, 66, 0.95);
+}
+
+strong {
+    color: rgba(255, 181, 66, 0.85);
+}
+
+b {
+    color: rgba(255, 181, 66, 0.75);
+}
+
+body {
+    background-color: hsl(36, 6%, 15%) !important;
+}
+
+.sidebar,
+.header {
+    // Color derived from normal cards
+    background: rgb(52, 50, 47) !important;
+} *//*# sourceMappingURL=guideColors.css.map */

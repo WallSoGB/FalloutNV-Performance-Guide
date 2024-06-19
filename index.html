@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Optimization Guides</title>
+    <title>Introduction | The Best of Times</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Performance optimization guides for Bethesda games and more.">
-    <meta property="og:title" content="Optimization Guides">
+    <meta name="description" content="A guide to making Fallout New Vegas run smoother. Hopefully. Covers DXVK, Alt-Tabbing, stutters and frametimes.">
+    <meta property="og:title" content="Fallout New Vegas Performance and Stability Guide">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://performance.moddinglinked.com">
-    <meta property="og:image" content="https://performance.moddinglinked.com/img/favicon.webp">
-    <meta property="og:description" content="Performance optimization guides for Bethesda games and more.">
+    <meta property="og:image" content="https://performance.moddinglinked.com/img/ui/logo.webp">
+    <meta property="og:description" content="A guide to making Fallout New Vegas run smoother. Hopefully. Covers DXVK, Alt-Tabbing, stutters and frametimes.">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f3f3">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#202020">
     <meta name="keywords" content="Fallout New Vegas, FNV, FalloutNV, FPS, Performance, Fallout, FPS Limit, SpecialK, Riva Tuner, RTSS, Stutter, Lag, Latency, Hitches, Flip Model, DXGI, Interop, Nvidia, HDR">
@@ -18,69 +18,224 @@
     <script src="https://kit.fontawesome.com/baff4f2fd4.js" crossorigin="anonymous"></script>
     <script src="javascript.js"></script>
     <link rel="manifest" href="manifest.json">
+
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/navigationArrows.css">
+    <link rel="stylesheet" href="css/coco.css">
+    <link rel="stylesheet" href="css/progressBar.css">
+    <link rel="stylesheet" href="css/guideColors.css">
+
     <meta http-equiv='content-language' content='en-us'>
     <link rel="canonical" href="https://performance.moddinglinked.com">
-    <meta http-equiv="refresh" content="0; URL=https://performance.moddinglinked.com/falloutnv.html" />
 </head>
 
 <body class="theme dark-scheme">
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div>
+
     <div style="overflow:auto">
-        <div class="content-index">
+        <div class="header">
+            <div class="headerTitle">
+                <img src="https://thebestoftimes.moddinglinked.com/img/Coco/Logo.webp" alt="Logo">
+                <a href="./index.html" id="headerTitle">The Best of Times</a>
+            </div>
+            <div class="guideLinks" id="headerLinks">
+                <a href="https://vivanewvegas.moddinglinked.com" target="_blank" rel="nofollow">Fallout New Vegas</a>
+                <a href="https://themidnightride.moddinglinked.com" target="_blank" rel="nofollow">Fallout 4</a>
+            </div>
+        </div>
+        <div class="sidebar" id="sidebar">
+            <p>
+                <a href="#Introduction" title="🙃 Introduction">
+                    <span class="subIcon">🏠</span>
+                    <span class="flippy">🙃</span>
+                    Home
+                </a>
+
+                <a href="#Introduction" title="🙃 Introduction">
+                    <span class="subIcon">👋</span>
+                    <span class="flippy">🙃</span>
+                    Introduction
+                </a>
+
+                <a href="#Terminology" title="🙃 Terminology">
+                    <span class="subIcon">🔧</span>
+                    <span class="flippy">🙃</span>
+                    Setup
+                </a>
+
+                <a href="#EngineOptimizations" title="🙃 lStewieAl's Engine Optimizations">
+                    <span class="subIcon">🧩</span>
+                    <span class="flippy">🙃</span>
+                    MO2
+                </a>
+
+                <a href="#FogCulling" title="🙃 Fog-based Object Culling">
+                    <span class="subIcon">🌇</span>
+                    <span class="flippy">🙃</span>
+                    TTW
+                </a>
+
+                <a href="#NVTF" title="🙃 New Vegas Tick Fix">
+                    <span class="subIcon">🪄</span>
+                    <span class="flippy">🙃</span>
+                    Essential Mods
+                </a>
+
+                <a href="#DriversAndOS" title="🙃 Graphics Drivers and Windows">
+                    <span class="subIcon">🏁</span>
+                    <span class="flippy">🙃</span>
+                    Final Steps
+                </a>
+
+                <hr>
+
+                <a href="#DisplayModeComparison" title="🙃 Display modes">
+                    <span class="subIcon">📃</span>
+                    <span class="flippy">🙃</span>
+                    Changelog
+                </a>
+
+                <a href="#DXVK" title="🙃 DXVK">
+                    <span class="subIcon">❓</span>
+                    <span class="flippy">🙃</span>
+                    FAQ
+                </a>
+
+                <a href="#RecommendedLimiters" title="🙃 FPS Limiters">
+                    <span class="subIcon">🛑</span>
+                    <span class="flippy">🙃</span>
+                    Tools to Avoid
+                </a>
+
+                <a href="#FAQ" title="🙃 FAQ">
+                    <span class="subIcon">🛑</span>
+                    <span class="flippy">🙃</span>
+                    Mods to Avoid
+                </a>
+            </p>
+        </div>
+
+        <div class="content">
 
             <!-- Introduction -->
-            <div>
+            <div class="section">
+                <div class="card-yellow center" style="display: flex; align-items: center;">
+                    <p>
+                        <img src="./img/Coco/Blockquote.webp" alt="Coco blockquote" class="cocoNerd">
+                    <div>
+                        <b>IMPORTANT:</b>
+                        <br>
+                        Everything in this guide is written down for a reason! It is vital to read <b>everything!</b>
+                        <br>
+                        You can <b>NOT</b> skip any paragraphs/instructions and expect your game to function as it should.
+                    </div>
+                    </p>
+                </div>
                 <span id="Introduction" onclick="location.href='#Introduction'">
                     <h2>Introduction</h2>
                 </span>
-                <div class="card flex">
+                <div class="card flex" style="  justify-content: space-between;">
                     <div>
                         <p>
-                        <h3>Welcome!</h3>
-                        The performance guide is available for the following games, choose what you are currently modding.
+                        <h3>Overview</h3>
                         </p>
+                        <p>
+                            This guide will instruct you on how to properly install Tale of Two Wastelands - a total conversion mod for Fallout New Vegas that merges the games of Fallout 3 and New Vegas together!
+                            <br>
+                            All essential mods required for performance and stability will also be installed.
+                        </p>
+                        <p>
+                            The guide is highly accessible for everyone, no matter your modding experience.
+                            <br>
+                            It is still incredibly important that you read all the instructions very carefully, even if you believe you are experienced enough to skip them.
+                            <br>
+                            There are many small instructions that are vital for your game to function, and could be easily missed if you aren't careful.
+                            <br>
+                            Although you don't need any modding experience to use this guide, it is expected for you to be relatively experienced with operating a computer in general.
+                        </p>
+                    </div>
+                    <div id="logo">
+                        <img src="img/Coco/Full.webp" alt="Logo of a Vault-Boy with glasses typing on a computer">
                     </div>
                 </div>
                 <div class="card">
-                    <div>
-                        <p class="page-picker">
-                            <a href="./falloutnv.html" title="🙃 Fallout New Vegas" class="button">
-                                <span class="subIcon">🏜️</span>
-                                <span class="flippy">🙃</span>
-                                Fallout New Vegas
-                            </a>
-
-                            <!--
-                            <a href="./fallout4.html" title="🙃 Fallout 4" class="button">
-                                <span class="subIcon">🤖</span>
-                                <span class="flippy">🙃</span>
-                                Fallout 4
-                            </a>
-                            -->
-
-                            <!--                            
-                                <a href="./skyrimse.html" title="🙃 Skyrim Special Edition" class="button">
-                                <span class="subIcon">🐲</span>
-                                <span class="flippy">🙃</span>
-                                Skyrim Special Edition
-                            </a> -->
-                        </p>
-
-                        <!--
-                        <hr>
-                        <p class="page-picker">
-                            <a href="./fnvresults.html" title="🙃 Testing" class="button">
-                                <span class="subIcon">📊</span>
-                                <span class="flippy">🙃</span>
-                                Testing
-                            </a>
-                        </p>
-                        -->
-                    </div>
+                    <p>
+                    <h3>Requirements</h3>
+                    </p>
+                    <p>
+                    <ul>
+                        <li><b>English</b> copies of both Fallout 3 and Fallout New Vegas with <strong>all DLCs</strong> on either Steam, GOG, or the Epic Games Store.</li>
+                        <ul>
+                            <li>You may "mix and match" Steam, GOG, and Epic Games versions of the 2 games.</li>
+                            <li>Only the English version of the game is supported for maximum compatibility - translations can conflict with mods and cause issues.</li>
+                            <li>The <b>Microsoft Store</b> versions are not supported.</li>
+                            <li>The german release uses a "No Gore" version, making it also incompatible with xNVSE. If you have it on Steam, you can use <a href="https://github.com/SteamRE/DepotDownloader" target="_blank">DepotDownloader</a> to download the international EXE.</li>
+                        </ul>
+                        <li>At least 25GB of free drive space, game included.</li>
+                        <li>Windows 10 or higher (64-bit).</li>
+                        <ul>
+                            <li>
+                                Mod Organizer 2 does <b>NOT</b> support <strong>ARM64</strong> Windows. Vortex works, but is not supported by this guide.
+                            </li>
+                        </ul>
+                        <li>A text editor (<a href="https://notepad-plus-plus.org/" target="_blank">Notepad++</a> is recommended, but the default Windows notepad will work).</li>
+                        <li>An archiving tool (<a href="https://apps.microsoft.com/store/detail/nanazip/9N8G7TSCL18R?hl=en-us&gl=us" target="_blank">NanaZip</a> is recommended).</li>
+                        <li>The latest GPU drivers (either <a href="https://www.nvidia.com/Download/index.aspx" target="_blank">NVIDIA</a>, <a href="https://www.amd.com/en/support" target="_blank">AMD</a> or <a href="https://www.intel.com/content/www/us/en/search.html#q=&sort=relevancy&f:@tabfilter=[Downloads]&f:@stm_10385_en=[Graphics]" target="_blank">Intel</a>).</li>
+                        <li>A <a href="https://users.nexusmods.com/register" target="_blank">Nexus Mods</a> account (a Premium subscription will allow uncapped speeds).</li>
+                        <li>A <a href="https://mod.pub/account/register" target="_blank">ModPub</a> account.</li>
+                    </ul>
+                    </p>
                 </div>
+                <div class="card">
+                    <p>
+                    <h3>Recommended Specs</h3>
+                    </p>
+                    <p>
+                        The guide will make the game run better than vanilla. The game is much more CPU-intensive than GPU-intensive, and actually scales with modern hardware pretty well. Installing the game on an SSD will drastically improve loading times and decrease stuttering. Here are the recommended specs for being able to run the guide at 60 FPS at 1080p:
+                        <br>
+                    <ul>
+                        <li><b>CPU:</b> Any dual-core processor (2.5GHz or more).</li>
+                        <li><b>RAM:</b> 8GB or more.</li>
+                        <li><b>GPU:</b> Matching or surpassing the performance of NVIDIA's 600 series or AMD's 5500 series.</li>
+                        <div class="card-red">
+                            <p>
+                                <b>WARNING:</b>
+                                <br>
+                                All 2024 AMD <b>GPU</b> drivers are broken, and will crash the game!
+                                <br>
+                                <s>You'll need to install DXVK provided later in the guide, or downgrade to the 2023 December release.</s>
+                                <br>
+                                <b>24.05.2024 Update</b>
+                                <br>
+                                AMD has released a driver hot-fix <b>23.40.33.03</b> to resolve this issue, you can download it <a href="https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-23-40-33-03.html" target="_blank">here</a>.
+                            </p>
+                        </div>
+                    </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Arrows -->
+            <div class="navigationArrowContainer">
+                <a href="./index.html" id="previous" rel="prev" class="navigationArrow">
+                    <img class="mirror" src="./img/Others/Arrow.webp" alt="Back Arrow">
+                    <span class="arrowText">Home</span>
+                </a>
+
+                <a href="./setup.html" id="next" rel="next" class="navigationArrow">
+                    <span class="arrowText">Setup</span>
+                    <img src="./img/Others/Arrow.webp" alt="Forward Arrow">
+                </a>
             </div>
         </div>
     </div>
+
+
+
+    <footer>ModdingLinked 2024</footer>
 </body>
 
 </html>

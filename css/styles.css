@@ -31,7 +31,7 @@ div {
 
 body {
   margin: 0;
-  font-size: 0.85em;
+  font-size: 0.95em;
   font-weight: 400;
   line-height: 1.45em;
 }
@@ -56,34 +56,21 @@ h3 {
 }
 
 #logo {
-  width: 14em;
-  padding: 0.5em;
-  border-radius: 36px;
-  margin-right: 2em;
-  margin-left: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: right;
+}
+
+#logo img {
+  width: 100%;
+  max-width: 256px;
+  margin: 0;
+  padding: 0;
 }
 
 .flex {
   display: flex;
-}
-
-.limiters-img {
-  box-shadow: 0 2pt 4pt 0 rgba(0, 0, 0, 0.5);
-  border-radius: 6pt;
-  margin: 1em 0 1em 0;
-  max-width: 80%;
-  height: auto;
-}
-
-.graph-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 2pt 4pt 0 rgba(0, 0, 0, 0.5);
-  border-radius: 6pt;
-  max-width: 80%;
-  max-height: 90%;
-  height: auto;
 }
 
 #applyConfirmation {
@@ -94,6 +81,10 @@ h3 {
 a {
   color: rgb(101, 206, 253);
   text-decoration: none;
+}
+
+a:hover {
+  color: hsl(199, 83%, 45%);
 }
 
 li {
@@ -283,13 +274,12 @@ hr {
 }
 
 .sidebar {
-  top: 0;
   float: left;
   width: 15em;
   text-align: center;
   position: fixed;
   z-index: 2;
-  margin-top: 1em;
+  margin-top: 6em;
   margin-left: 0.75em;
   border-radius: 4px;
   -webkit-user-select: none;
@@ -345,7 +335,6 @@ hr {
 
 .page-picker a:hover .flippy,
 .sidebar a:hover .flippy,
-.header:hover span,
 .flippy:hover {
   cursor: pointer;
   animation: rotate 0.4s ease-in-out;
@@ -433,26 +422,8 @@ b.card-basic {
   font-size: small;
 }
 
-.header {
-  font-size: 32px;
-  padding: 20px 12px 22px 10px;
-  margin-left: -100px;
-  margin-bottom: 10px;
-  background: rgb(43, 43, 43);
-  outline: 1px solid rgba(0, 0, 0, 0.1);
-  position: fixed;
-  border-bottom-right-radius: 10px;
-  border-top-right-radius: 10px;
-  z-index: 2;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  transition: all 333ms Cubic-Bezier(0, 0, 0, 1);
-  margin-top: 0.033em !important;
-}
-
 .content {
+  margin-top: 2.5em;
   float: left;
   margin-left: 14.5em;
   width: 80%;
@@ -691,11 +662,7 @@ footer {
   a {
     color: rgb(13, 96, 182);
   }
-  .header {
-    outline: 1px solid rgba(0, 0, 0, 0.0578);
-    background: rgb(251, 251, 251);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
-  }
+
   .card,
   .expander-top,
   .expander-bottom {
@@ -800,13 +767,6 @@ footer {
     border-top-right-radius: 0;
     overflow-y: scroll;
   }
-  .header {
-    margin-left: 0;
-    height: -moz-fit-content;
-    height: fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
-  }
 }
 @media only screen and (max-width: 700px) {
   .comparison-table .card-red,
@@ -860,11 +820,6 @@ footer {
     width: -moz-fit-content;
     width: fit-content;
   }
-  #logo {
-    margin-left: 0;
-    margin-right: 0;
-    width: 0em;
-  }
   .width-limited {
     max-width: 100%;
   }
@@ -872,26 +827,9 @@ footer {
     max-width: 100%;
   }
 }
-@media only screen and (min-width: 901px) {
-  .header {
-    margin-left: -100px;
-  }
-}
 .abbreviation {
   text-decoration: underline !important;
   text-decoration-style: dotted !important;
-}
-
-.progress-container {
-  width: 100%;
-  background-color: #6e6e6e;
-  position: fixed;
-}
-
-.progress-bar {
-  height: 0.1em;
-  background-color: #71e075;
-  width: 0;
 }
 
 .section {
@@ -906,4 +844,8 @@ footer {
 .faq h4 {
   margin-top: 1.7em;
   margin-bottom: 0.2em;
+}
+
+.mirror {
+  rotate: 180deg;
 }/*# sourceMappingURL=styles.css.map */
